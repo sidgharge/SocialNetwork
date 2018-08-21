@@ -31,6 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		User user = optionalUser.get();
 		
+		if(!user.isActivated()) {
+			throw new UnserNotActivatedException();
+		}
+		
 		List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
 		
 		return new org.springframework.security.core.userdetails.User(String.valueOf(user.getId()), user.getPassword(), authorities);
