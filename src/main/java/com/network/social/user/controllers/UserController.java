@@ -21,7 +21,7 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/register")
-	public void register(@Valid @RequestBody RegistrationDto registrationDto, HttpServletRequest request) {
+	public void register(@Valid @RequestBody RegistrationDto registrationDto) throws Exception {
 		userService.register(registrationDto);
 	}
 }

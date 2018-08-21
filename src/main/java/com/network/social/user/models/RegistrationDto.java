@@ -2,6 +2,7 @@ package com.network.social.user.models;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class RegistrationDto {
@@ -18,8 +19,7 @@ public class RegistrationDto {
 	@Email(message = "Invalid email")
 	private String email;
 
-	@NotEmpty
-	@Size(min = 10, max = 10)
+	@Pattern(regexp="(^$|[0-9]{10})", message="Contact number should be a digit number")
 	private String contact;
 
 	@NotEmpty
