@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.network.social.user.dtos.ResponseDto;
 import com.network.social.user.exceptions.EmailAlreadyRegisteredException;
 import com.network.social.user.exceptions.FriendRequestAlreadySentException;
+import com.network.social.user.exceptions.FriendRequestDoesNotExist;
 import com.network.social.user.exceptions.InvalidLinkException;
+import com.network.social.user.exceptions.UnathorizedException;
 import com.network.social.user.exceptions.UserNotActivatedException;
 import com.network.social.user.exceptions.UserNotFoundException;
 
@@ -67,6 +69,24 @@ public class UserExceptionHandler {
 		logger.info(dto.getMessage(), e);
 		
 		return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FriendRequestDoesNotExist.class)
+	public ResponseEntity<ResponseDto> handleFriendRequestDoesNotExist(FriendRequestDoesNotExist e) {
+		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("req_not_exist"));
+		
+		logger.info(dto.getMessage(), e);
+		
+		return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UnathorizedException.class)
+	public ResponseEntity<ResponseDto> handleUnathorizedException(UnathorizedException e) {
+		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("unauth"));
+		
+		logger.info(dto.getMessage(), e);
+		
+		return new ResponseEntity<>(dto, HttpStatus.FORBIDDEN);
 	}
 	
 	@ExceptionHandler(Exception.class)
