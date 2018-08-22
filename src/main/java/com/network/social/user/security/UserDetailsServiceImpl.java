@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.network.social.user.exceptions.UserNotActivatedException;
 import com.network.social.user.models.User;
 import com.network.social.user.repositories.UserRepository;
 
@@ -32,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User user = optionalUser.get();
 		
 		if(!user.isActivated()) {
-			throw new UnserNotActivatedException();
+			throw new UserNotActivatedException();
 		}
 		
 		List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));

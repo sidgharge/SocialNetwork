@@ -1,4 +1,4 @@
-package com.network.social.user.models;
+package com.network.social.user.dtos;
 
 public class Email {
 

@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.network.social.user.dtos.ResponseDto;
 import com.network.social.user.exceptions.EmailAlreadyRegisteredException;
+import com.network.social.user.exceptions.FriendRequestAlreadySentException;
 import com.network.social.user.exceptions.InvalidLinkException;
-import com.network.social.user.models.ResponseDto;
+import com.network.social.user.exceptions.UserNotActivatedException;
+import com.network.social.user.exceptions.UserNotFoundException;
 
 @ControllerAdvice
 public class UserExceptionHandler {
@@ -33,6 +36,33 @@ public class UserExceptionHandler {
 	@ExceptionHandler(InvalidLinkException.class)
 	public ResponseEntity<ResponseDto> handleEmailAlreadyUsed(InvalidLinkException e) {
 		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("invalid_link"));
+		
+		logger.info(dto.getMessage(), e);
+		
+		return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ResponseDto> handleUserNotFoundException(UserNotFoundException e) {
+		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("user_not_found"));
+		
+		logger.info(dto.getMessage(), e);
+		
+		return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserNotActivatedException.class)
+	public ResponseEntity<ResponseDto> handleUserNotActivatedException(UserNotActivatedException e) {
+		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("user_not_activated"));
+		
+		logger.info(dto.getMessage(), e);
+		
+		return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FriendRequestAlreadySentException.class)
+	public ResponseEntity<ResponseDto> handleFriendRequestAlreadySentException(FriendRequestAlreadySentException e) {
+		ResponseDto dto = ResponseDto.fromPropeties(env.getProperty("frnd_req_already_sent"));
 		
 		logger.info(dto.getMessage(), e);
 		

@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
+import com.network.social.user.dtos.Email;
+import com.network.social.user.dtos.RegistrationDto;
 import com.network.social.user.exceptions.EmailAlreadyRegisteredException;
 import com.network.social.user.exceptions.InvalidLinkException;
-import com.network.social.user.models.Email;
-import com.network.social.user.models.RegistrationDto;
 import com.network.social.user.models.User;
 import com.network.social.user.repositories.UserRedisRepository;
 import com.network.social.user.repositories.UserRepository;
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 		
 		userRedisRepository.delete(token);
 	}
-
+	
 	private String readFile(String path) throws IOException {
 		File mailFile = ResourceUtils.getFile(activationTemplatePath);
 		return new String(Files.readAllBytes(mailFile.toPath()));

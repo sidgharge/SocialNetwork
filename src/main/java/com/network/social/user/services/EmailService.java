@@ -2,7 +2,7 @@ package com.network.social.user.services;
 
 import javax.mail.MessagingException;
 
-import com.network.social.user.models.Email;
+import com.network.social.user.dtos.Email;
 
 public interface EmailService {
 	

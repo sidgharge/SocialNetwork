@@ -1,4 +1,4 @@
-package com.network.social.user.models;
+package com.network.social.user.dtos;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
